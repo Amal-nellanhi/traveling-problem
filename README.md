@@ -37,5 +37,4 @@ Distance Traveled: 240 km
 Base Fare: 1920
 Discount: 96
 Final Amount Payable: 1824
-Travel Suggestion:
 ```
