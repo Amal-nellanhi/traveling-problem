@@ -61,55 +61,46 @@ Any travel suggestion
 # Total Amount Payable : ₹4712.00
 # Suggestion: It's better to travel by train or flight for long distances.
 #=========================================================================
+def get_rate(vehicle, distance):
+    if vehicle == 1:
+        if distance <= 50:
+            return 5
+        elif distance <= 200:
+            return 4
+        else:
+            return 3.5
+    elif vehicle == 2:
+        if distance <= 50:
+            return 10
+        elif distance <= 200:
+            return 9
+        else:
+            return 8
+    elif vehicle == 3:
+        if distance <= 50:
+            return 8
+        elif distance <= 200:
+            return 7
+        else:
+            return 6
+    return 0
 
-
-name = input("Enter passenger Name:")
-distance = float(input("Enter Distance (km)"))
-vehicle = int(input("Enter Vehicle Type (1 for Bike, 2 for Car, 3 for Bus):"))
-flag = 0
-if vehicle == 1:
-    type = 'Bike'
-elif vehicle == 2:
-    type = 'Car'
-elif vehicle == 3:
-    type = 'Bus'
-
-if distance > 500:
-    flag = 1
-if(vehicle == 1):
-    if 0<= distance <= 50:
-        rate = 5
-    elif 51<= distance <= 200:
-        rate = 4
-    elif distance > 200:
-        rate = 3.5
+def travel_summary(name, distance, vehicle):
+    vehicle_name = {1: "Bike", 2: "Car", 3: "Bus"}.get(vehicle, "Unknown")
+    rate = get_rate(vehicle, distance)
     fare = distance * rate
+    discount = fare * 0.05 if fare > 1500 else 0
+    final = fare - discount
+    print(f"Passenger Name : {name}")
+    print(f"Vehicle Type   : {vehicle_name}")
+    print(f"Distance       : {distance:.1f} km")
+    print(f"Base Fare      : ₹{fare:.2f}")
+    print(f"Discount (5%)  : ₹{discount:.2f}")
+    print(f"Total Payable  : ₹{final:.2f}")
+    if distance > 500:
+        print("Suggestion  : It's better to travel by train or flight for long distances.")
 
-elif(vehicle == 2):
-    if 0<= distance <= 50:
-        rate = 10
-    elif 51<= distance <= 200:
-        rate = 9
-    elif distance > 200:
-        rate = 8
-    fare = distance * rate
-elif(vehicle == 3):
-    if 0<= distance <= 50:
-        rate = 8
-    elif 51<= distance <= 200:
-        rate = 7
-    elif distance > 200:
-        rate = 6
-    fare = distance * rate
-if fare > 1500:
-    discount = fare * 0.05
-    t_fare = fare - discount
-
-print(f"Passenger Name : {name} ") 
-print(f"Vehicle Type: {type}")
-print(f"Distance: {distance} km") 
-print(f"Base Fare: {fare}") 
-print(f"Discount (5%) : {discount}")
-print(f"Total Amount Payable : {t_fare}")
-if flag == 1:
-    print("Suggestion: It's better to travel by train or flight for long distances.")
+name = input("Enter Passenger Name: ")
+distance = float(input("Enter Distance (km): "))
+vehicle = int(input("Enter Vehicle Type (1 for Bike, 2 for Car, 3 for Bus): "))
+travel_summary(name, distance, vehicle)
